@@ -1,6 +1,6 @@
 // Used for creating GDT segment descriptors in 64-bit integer form.
  
-#include "kernel/gdt.h"
+#include <kernel/gdt.h>
  
 // Each define here is for a specific flag in the descriptor.
 // Refer to the intel documentation for a description of what each one does.

@@ -14,18 +14,16 @@
 #define CMD_MAKEREL_KEY 0xFC // Set key to make/release (Scan code set 3 only)
 #define CMD_MAKE_KEY    0xFD // Set key to make only (Scan code set 3 only)
 #define CMD_RESEND      0xFE // Resend last sent byte
-#define CMD_RESET       0xFF // Restart and start a self-test
+#define CMD_TEST        0xFF // Restart and start a self-test
 
-enum RES {
-    RES_ERR =           0x00,
-    RES_TEST_PASS =     0xAA,
-    RES_ECHO =          0xEE,
-    RES_ACK =           0xFA,
-    RES_TEST_FAIL =     0xFC,
-    RES_TEST_FAIL_ =    0xFD,
-    RES_RESEND =        0xFE,
-    RES_ERR_ =          0xFF
-};
+#define RES_ERR         0x00 // Key detection or buffer overflow error
+#define RES_TEST_PASS   0xAA // Self test passed
+#define RES_ECHO        0xEE // Response to CMD_ECHO
+#define RES_ACK         0xFA // Command acknowledged
+#define RES_TEST_FAIL   0xFC // Self test failed or mouse transmit error
+#define RES_FAIL        0xFD // Internal failure
+#define RES_RESEND      0xFE // Repeat last command sent
+#define RES_ERR_        0xFF // Key detection or buffer overflow error
 
 #define KEY_ESCAPE      0x01
 #define KEY_1           0x02
@@ -201,4 +199,82 @@ enum RES {
 #define KEY_REL_F11     0xD7
 #define KEY_REL_F12     0xD8
 
-#define KEY_EXT         0xE0
+#define KEY_EXT         0xE0 // Extended keycode, one of two bytes
+
+#define KEY_EXT_PREV    0x10
+#define KEY_EXT_NEXT    0x19
+#define KEY_EXT_NUM_ENTER 0x1C
+#define KEY_EXT_RIGHT_CTRL 0x1D
+#define KEY_EXT_MUTE    0x20
+#define KEY_EXT_CALC    0x21
+#define KEY_EXT_PLAY    0x22
+#define KEY_EXT_STOP    0x24
+#define KEY_EXT_VOL_DOWN 0x2E
+#define KEY_EXT_VOL_UP  0x30
+#define KEY_EXT_WEB     0x32
+#define KEY_EXT_NUM_SLASH 0x35
+#define KEY_EXT_ALTGR   0x38
+#define KEY_EXT_HOME    0x47
+#define KEY_EXT_UP      0x48
+#define KEY_EXT_PAGEUP  0x49
+#define KEY_EXT_LEFT    0x4B
+#define KEY_EXT_RIGHT   0x4D
+#define KEY_EXT_END     0x4F
+#define KEY_EXT_DOWN    0x50
+#define KEY_EXT_PAGEDOWN 0x51
+#define KEY_EXT_INSERT  0x52
+#define KEY_EXT_DEL     0x53
+#define KEY_EXT_LEFT_WIN 0x5B
+#define KEY_EXT_RIGHT_WIN 0x5C
+#define KEY_EXT_APPS    0x5D
+#define KEY_EXT_POWER   0x5E
+#define KEY_EXT_SLEEP   0x5F
+#define KEY_EXT_WAKE    0x63
+#define KEY_EXT_SEARCH  0x65
+#define KEY_EXT_FAVORITES 0x66
+#define KET_EXT_REFRESH 0x67
+#define KEY_EXT_WWW_STOP 0x68
+#define KEY_EXT_FORWARD 0x69
+#define KEY_EXT_BACK    0x6A
+#define KEY_EXT_COMPUTER 0x6B
+#define KEY_EXT_EMAIL   0x6C
+#define KEY_EXT_MEDIA   0x6D
+
+#define KEY_EXT_REL_PREV    0x90
+#define KEY_EXT_REL_NEXT    0x99
+#define KEY_EXT_REL_NUM_ENTER 0x9C
+#define KEY_EXT_REL_RIGHT_CTRL 0x9D
+#define KEY_EXT_REL_MUTE    0xA0
+#define KEY_EXT_REL_CALC    0xA1
+#define KEY_EXT_REL_PLAY    0xA2
+#define KEY_EXT_REL_STOP    0xA4
+#define KEY_EXT_REL_VOL_DOWN 0xAE
+#define KEY_EXT_REL_VOL_UP  0xB0
+#define KEY_EXT_REL_WEB     0xB2
+#define KEY_EXT_REL_NUM_SLASH 0xB5
+#define KEY_EXT_REL_ALTGR   0xB8
+#define KEY_EXT_REL_HOME    0xC7
+#define KEY_EXT_REL_UP      0xC8
+#define KEY_EXT_REL_PAGEUP  0xC9
+#define KEY_EXT_REL_LEFT    0xCB
+#define KEY_EXT_REL_RIGHT   0xCD
+#define KEY_EXT_REL_END     0xCF
+#define KEY_EXT_REL_DOWN    0xD0
+#define KEY_EXT_REL_PAGEDOWN 0xD1
+#define KEY_EXT_REL_INSERT  0xD2
+#define KEY_EXT_REL_DEL     0xD3
+#define KEY_EXT_REL_LEFT_WIN 0xDB
+#define KEY_EXT_REL_RIGHT_WIN 0xDC
+#define KEY_EXT_REL_APPS    0xDD
+#define KEY_EXT_REL_POWER   0xDE
+#define KEY_EXT_REL_SLEEP   0xDF
+#define KEY_EXT_REL_WAKE    0xE3
+#define KEY_EXT_REL_SEARCH  0xE5
+#define KEY_EXT_REL_FAVORITES 0xE6
+#define KET_EXT_REL_REFRESH 0xE7
+#define KEY_EXT_REL_WWW_STOP 0xE8
+#define KEY_EXT_REL_FORWARD 0xE9
+#define KEY_EXT_REL_BACK    0xEA
+#define KEY_EXT_REL_COMPUTER 0xEB
+#define KEY_EXT_REL_EMAIL   0xEC
+#define KEY_EXT_REL_MEDIA   0xED
