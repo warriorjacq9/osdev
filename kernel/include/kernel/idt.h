@@ -16,9 +16,14 @@ typedef struct {
 	uint32_t	base;
 } __attribute__((packed)) idtr_t;
 
-
+typedef struct {
+   uint32_t ds; /* Data segment selector */
+   uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax; /* Pushed by pusha. */
+   uint32_t int_no, err_code; /* Interrupt number and error code (if applicable) */
+   uint32_t eip, cs, eflags, useresp, ss; /* Pushed by the processor automatically */
+} registers_t;
 
 __attribute__((noreturn))
-void exception_handler(void);
+void exception_handler(registers_t r);
 void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flags);
 void idt_init(void);

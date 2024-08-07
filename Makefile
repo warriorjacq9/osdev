@@ -1,7 +1,10 @@
-all: build
+all: iso
 
 build:
 	./build.sh
+
+iso:
+	./iso.sh
 
 test:
 	./qemu.sh

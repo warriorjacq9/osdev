@@ -79,7 +79,43 @@ movl $(boot_page_table1 - 0xC0000000), %edi
 	cli
 	call kernel_main
 
+
 	# Hang if kernel_main unexpectedly returns.
 	cli
 1:	hlt
 	jmp 1b
+
+.global gdt_flush     
+.extern gp          
+gdt_flush:
+    lgdt [gp]        
+    mov $0x10, %ax      
+    mov %ax, %ds
+    mov %ax, %es
+    mov %ax, %fs
+    mov %ax, %gs
+    mov %ax, %ss
+	jmp $0x08, $flush2
+flush2:
+    ret
+
+.global load_page_dir
+load_page_dir:
+	push %ebp
+	mov %esp, %ebp
+	mov 8(%esp), %eax
+	mov %eax, %cr3
+	mov %ebp, %esp
+	pop %ebp
+	ret
+
+.global enable_paging
+enable_paging:
+	push %ebp
+	mov %esp, %ebp
+	mov %cr0, %eax
+	or $0x80000000, %eax
+	mov %eax, %cr0
+	mov %ebp, %esp
+	pop %ebp
+	ret
