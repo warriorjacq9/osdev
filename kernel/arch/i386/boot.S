@@ -20,8 +20,10 @@ stack_top:
 
 .section .bss, "aw", @nobits
 	.align 4096
+.global boot_page_directory
 boot_page_directory:
 	.skip 4096
+.global boot_page_table1
 boot_page_table1:
 	.skip 4096
 
@@ -99,23 +101,30 @@ gdt_flush:
 flush2:
     ret
 
-.global load_page_dir
-load_page_dir:
+.global get_cr0
+get_cr0:
+	mov %cr0, %eax
+	ret
+
+.global set_cr0
+set_cr0:
 	push %ebp
 	mov %esp, %ebp
-	mov 8(%esp), %eax
-	mov %eax, %cr3
-	mov %ebp, %esp
+	mov 8(%ebp), %eax
+	mov %eax, %cr0
 	pop %ebp
 	ret
 
-.global enable_paging
-enable_paging:
+.global get_cr3
+get_cr3:
+	mov %cr3, %eax
+	ret
+
+.global set_cr3
+set_cr3:
 	push %ebp
 	mov %esp, %ebp
-	mov %cr0, %eax
-	or $0x80000000, %eax
-	mov %eax, %cr0
-	mov %ebp, %esp
+	mov 8(%ebp), %eax
+	mov %eax, %cr3
 	pop %ebp
 	ret

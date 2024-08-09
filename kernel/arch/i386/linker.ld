@@ -4,7 +4,7 @@ SECTIONS
 {
 	. = 0x00100000;
 
-	_kernel_start = .;
+	PROVIDE(_kernel_start = .);
 	.multiboot.data : {
 		*(.multiboot.data)
 	}
@@ -34,5 +34,5 @@ SECTIONS
 		*(.bootstrap_stack)
 	}
 
-	_kernel_end = .;
+	PROVIDE(_kernel_end = .);
 }

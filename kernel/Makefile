@@ -72,6 +72,7 @@ clean:
 	rm -f myos.kernel
 	rm -f $(OBJS) *.o */*.o */*/*.o
 	rm -f $(OBJS:.o=.d) *.d */*.d */*/*.d
+	rm -f kernel.dump
 
 install: install-headers install-kernel
 

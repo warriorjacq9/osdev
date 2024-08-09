@@ -1,6 +1,7 @@
 #include <kernel/idt.h>
 #include <stdio.h>
 #include <string.h>
+#include <kernel/page.h>
 
 __attribute__((aligned(0x10))) 
 static idt_entry_t idt[256];
@@ -45,9 +46,13 @@ char *exceptions[] =
 
 void exception_handler(registers_t r)
 {
-    if (r.err_code < 32)
+    if (r.int_no < 32)
     {
-        printf("%s exception. System halted", exceptions[r.err_code]);
+        if(r.int_no == 14){
+            page_fault(r);
+        } else {
+            printf("%d: %s exception. System halted", r.int_no, exceptions[r.int_no]);
+        }
         for(;;);
     }
 }
@@ -62,6 +67,7 @@ void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flags)
 }
 
 static bool vectors[IDT_MAX_DESCRIPTORS];
+extern void *isr_stub_table[];
 
 void idt_init()
 {
@@ -71,7 +77,7 @@ void idt_init()
     memset(&idt, 0, sizeof(idt_entry_t) * IDT_MAX_DESCRIPTORS);
 
     for (uint8_t vector = 0; vector < 32; vector++) {
-        idt_set_descriptor(vector, exception_handler, 0x8E);
+        idt_set_descriptor(vector, isr_stub_table[vector], 0x8E);
         vectors[vector] = true;
     }
 
