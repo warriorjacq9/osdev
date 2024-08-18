@@ -1,3 +1,8 @@
+#ifndef KEYBOARD_H
+#define KEYBOARD_H
+
+#include <kernel/idt.h>
+
 #define CMD_LED         0xED // Set LEDs
 #define CMD_ECHO        0xEE // Echo
 #define CMD_SCAN_SET    0xF0 // Get / Set scancode set
@@ -278,3 +283,6 @@
 #define KEY_EXT_REL_COMPUTER 0xEB
 #define KEY_EXT_REL_EMAIL   0xEC
 #define KEY_EXT_REL_MEDIA   0xED
+
+void keyboard_handler(registers_t r);
+#endif

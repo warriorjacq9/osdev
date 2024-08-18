@@ -37,4 +37,6 @@ void irq_clear_mask(uint8_t irq);
 uint16_t pic_get_irr();
 uint16_t pic_get_isr();
 
+uint8_t check_interrupts();
+
 #endif

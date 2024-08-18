@@ -92,6 +92,7 @@ install-headers:
 install-libs: $(BINARIES)
 	mkdir -p $(DESTDIR)$(LIBDIR)
 	cp $(BINARIES) $(DESTDIR)$(LIBDIR)
+	objdump -ht libk.a > libk.dump
 
 -include $(OBJS:.o=.d)
 -include $(LIBK_OBJS:.o=.d)

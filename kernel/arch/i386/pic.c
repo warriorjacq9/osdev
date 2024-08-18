@@ -88,3 +88,10 @@ uint16_t pic_get_isr()
 {
     return pic_get_reg(PIC_ISR);
 }
+
+uint8_t check_interrupts()
+{
+    uint32_t flags;
+    __asm__ volatile("pushf; pop %0" : "=g"(flags));
+    return flags & (1 << 9);
+}

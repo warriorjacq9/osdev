@@ -38,6 +38,9 @@ $(KERNEL_OBJS) \
 $(ARCHDIR)/crtend.o \
 $(ARCHDIR)/crtn.o \
 $(ARCHDIR)/isr.o \
+drivers/keyboard.o \
+drivers/timer.o \
+drivers/pcspk.o \
 
 LINK_LIST=\
 $(LDFLAGS) \
@@ -48,6 +51,9 @@ $(LIBS) \
 $(ARCHDIR)/crtend.o \
 $(ARCHDIR)/crtn.o \
 $(ARCHDIR)/isr.o \
+drivers/keyboard.o \
+drivers/timer.o \
+drivers/pcspk.o \
 
 .PHONY: all clean install install-headers install-kernel
 .SUFFIXES: .o .c .S
@@ -57,7 +63,6 @@ all: myos.kernel
 myos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
 	grub-file --is-x86-multiboot myos.kernel
-	objdump -d myos.kernel > kernel.dump
 
 $(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
 	OBJ=`$(CC) $(CFLAGS) $(LDFLAGS) -print-file-name=$(@F)` && cp "$$OBJ" $@
@@ -83,5 +88,6 @@ install-headers:
 install-kernel: myos.kernel
 	mkdir -p $(DESTDIR)$(BOOTDIR)
 	cp myos.kernel $(DESTDIR)$(BOOTDIR)
+	objdump -d myos.kernel > kernel.dump
 
 -include $(OBJS:.o=.d)

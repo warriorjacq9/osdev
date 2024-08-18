@@ -2,11 +2,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <kernel/page.h>
+#include <drivers/keyboard.h>
+#include <kernel/pic.h>
+#include <drivers/timer.h>
 
 __attribute__((aligned(0x10))) 
 static idt_entry_t idt[256];
 __attribute__((aligned(0x10)))
 static idtr_t idtr;
+
+isr_t handlers[15];
 
 char *exceptions[] = 
 {
@@ -51,9 +56,16 @@ void exception_handler(registers_t r)
         if(r.int_no == 14){
             page_fault(r);
         } else {
-            printf("%d: %s exception. System halted", r.int_no, exceptions[r.int_no]);
+            printf("%d: %s exception at 0x%08X. System halted", r.int_no, exceptions[r.int_no], r.eip);
         }
         for(;;);
+    } else if (r.int_no < 48)
+    {
+        pic_send_eoi(r.int_no - 32);
+        if (handlers[r.int_no - 32] != 0){
+            isr_t handler = handlers[r.int_no - 32];
+            handler(r);
+        }
     }
 }
 
@@ -68,6 +80,13 @@ void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flags)
 
 static bool vectors[IDT_MAX_DESCRIPTORS];
 extern void *isr_stub_table[];
+extern void *irq_stub_table[];
+
+void register_handler(uint8_t vector, isr_t handler)
+{
+    handlers[vector - 32] = handler;
+    idt_set_descriptor(vector, irq_stub_table[vector - 32], 0x8E);
+}
 
 void idt_init()
 {
@@ -80,6 +99,9 @@ void idt_init()
         idt_set_descriptor(vector, isr_stub_table[vector], 0x8E);
         vectors[vector] = true;
     }
+
+    register_handler(33, keyboard_handler);
+    register_handler(32, timer_handler);
 
     __asm__ volatile ("lidt %0" : : "m"(idtr)); // load the new IDT
     __asm__ volatile ("sti"); // set the interrupt flag

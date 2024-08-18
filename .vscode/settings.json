@@ -5,6 +5,9 @@
         "stdlib.h": "c",
         "page.h": "c",
         "stdint.h": "c",
-        "tty.h": "c"
+        "tty.h": "c",
+        "stdio.h": "c",
+        "idt.h": "c",
+        "timer.h": "c"
     }
 }
