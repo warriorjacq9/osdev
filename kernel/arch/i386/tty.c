@@ -6,8 +6,6 @@
 #include <kernel/tty.h>
 #include "vga.h"
 
-static const size_t VGA_WIDTH = 80;
-static const size_t VGA_HEIGHT = 25;
 static uint16_t* const VGA_MEMORY = (uint16_t*) 0xC03FF000;
 
 static size_t terminal_row;
@@ -46,7 +44,7 @@ void terminal_scroll(void) {
     // Clear the last row.
     const size_t last_row_offset = VGA_HEIGHT - 1;
     for (size_t x = 0; x < VGA_WIDTH; x++) {
-        terminal_putentryat(' ', terminal_color, x, last_row_offset);
+        terminal_putentryat('\0', terminal_color, x, last_row_offset);
     }
 }
 
@@ -85,6 +83,27 @@ void terminal_write(const char* data, size_t size) {
 		terminal_putchar(data[i]);
 }
 
+void terminal_backspace() {
+    if(terminal_row * VGA_WIDTH + terminal_column != 0) {
+        if(--terminal_column < 0) {
+            terminal_row--;
+            terminal_column = VGA_WIDTH - 1;
+        }
+        terminal_putentryat('\0', terminal_color, terminal_column, terminal_row);
+    }
+}
+
 void terminal_writestring(const char* data) {
 	terminal_write(data, strlen(data));
+}
+
+void terminal_writestringat(const char* data, size_t x, size_t y)
+{
+    size_t ux = x;
+    if (y < VGA_HEIGHT && x + strlen(data) < VGA_WIDTH) { // Can write it
+        for (size_t i = 0; i < strlen(data); i++) {
+            terminal_putentryat(data[i], terminal_color, ux, y);
+            ux++;
+        }
+    }
 }

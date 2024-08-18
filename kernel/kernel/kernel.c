@@ -5,7 +5,7 @@
 #include <kernel/gdt.h>
 #include <kernel/pic.h>
 #include <drivers/timer.h>
-#include <drivers/pcspk.h>
+#include <pcspk.h>
 
 void kernel_main(void) {
 	terminal_initialize();
