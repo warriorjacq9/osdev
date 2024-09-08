@@ -17,8 +17,6 @@
 
     Available as `qemu-system-x86` on most package managers.
 
-## Kali
-
 # Building
 To build the cross-comipling tools, follow this tutorial
 for the i686-elf target:
@@ -30,6 +28,16 @@ and be prepared to wait).
 In the project root folder, run `make build`.
 
 To test the operating system, run `make test`.
+
+### Note:
+The operating system requires a hard disk image formatted as FAT16 for testing. You can make one with:
+
+```bash
+dd if=/dev/zero of=image.img bs=1M count=32
+mkfs.fat -F16 image.img
+```
+
+If you plan to run it on your computer, make sure you have a hard drive that doesn't have anything on it and is formatted as FAT16.
 
 # Installation
 This project currently runs off of a USB stick. To

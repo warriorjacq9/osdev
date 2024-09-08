@@ -2,3 +2,5 @@
 isodir
 sysroot
 *.log
+*.img
+hd

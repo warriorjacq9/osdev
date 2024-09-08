@@ -59,7 +59,8 @@ _irq\number:
     mov %ax, %fs
     mov %ax, %gs
     call exception_handler
-    pop %eax
+    pop %ebx
+    mov $0x10, %bx
     mov %bx, %ds
     mov %bx, %es
     mov %bx, %fs

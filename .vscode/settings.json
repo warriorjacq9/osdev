@@ -8,6 +8,10 @@
         "tty.h": "c",
         "stdio.h": "c",
         "idt.h": "c",
-        "timer.h": "c"
+        "timer.h": "c",
+        "ata_pio.h": "c",
+        "diskio.h": "c",
+        "ff.h": "c",
+        "stddef.h": "c"
     }
 }

@@ -13,6 +13,16 @@ static size_t terminal_column;
 static uint8_t terminal_color;
 static uint16_t* terminal_buffer;
 
+size_t get_row()
+{
+    return terminal_row;
+}
+
+size_t get_col()
+{
+    return terminal_column;
+}
+
 void terminal_initialize(void) {
 	terminal_row = 0;
 	terminal_column = 0;
@@ -85,7 +95,7 @@ void terminal_write(const char* data, size_t size) {
 
 void terminal_backspace() {
     if(terminal_row * VGA_WIDTH + terminal_column != 0) {
-        if(--terminal_column < 0) {
+        if(terminal_column-- <= 0) {
             terminal_row--;
             terminal_column = VGA_WIDTH - 1;
         }

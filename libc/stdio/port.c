@@ -20,3 +20,12 @@ inline void io_wait()
 {
     outb(0x80, 0);
 }
+
+inline void insw(uint16_t port, unsigned char* data, uint32_t count)
+{
+    __asm__ volatile ("rep insw" : "+D" (data), "+c" (count) : "d" (port) : "memory");
+}
+
+inline void outsw(uint16_t port, unsigned char * data, uint32_t count) {
+	asm volatile ("rep outsw" : "+S" (data), "+c" (count) : "d" (port));
+}

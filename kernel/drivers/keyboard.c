@@ -18,46 +18,46 @@ void print_letter(uint8_t scancode)
             printf("ESC");
             break;
         case 0x2:
-            printf("1");
+            printf(shift ? "!" : "1");
             break;
         case 0x3:
-            printf("2");
+            printf(shift ? "@" : "2");
             break;
         case 0x4:
-            printf("3");
+            printf(shift ? "#" : "3");
             break;
         case 0x5:
-            printf("4");
+            printf(shift ? "$" : "4");
             break;
         case 0x6:
-            printf("5");
+            printf(shift ? "%" : "5");
             break;
         case 0x7:
-            printf("6");
+            printf(shift ? "^" : "6");
             break;
         case 0x8:
-            printf("7");
+            printf(shift ? "&" : "7");
             break;
         case 0x9:
-            printf("8");
+            printf(shift ? "*" : "8");
             break;
         case 0x0A:
-            printf("9");
+            printf(shift ? "(" : "9");
             break;
         case 0x0B:
-            printf("0");
+            printf(shift ? ")" : "0");
             break;
         case 0x0C:
-            printf("-");
+            printf(shift ? "_" : "-");
             break;
         case 0x0D:
-            printf("+");
+            printf(shift ? "+" : "=");
             break;
         case 0x0E:
             terminal_backspace();
             break;
         case 0x0F:
-            printf("Tab");
+            printf("    ");
             break;
         case 0x10:
             printf(caps ? "Q" : "q");
@@ -90,16 +90,16 @@ void print_letter(uint8_t scancode)
             printf(caps ? "P" : "p");
             break;
 		case 0x1A:
-			printf("[");
+			printf(shift ? "{" : "[");
 			break;
 		case 0x1B:
-			printf("]");
+			printf(shift ? "}" : "]");
 			break;
 		case 0x1C:
 			printf("\n");
 			break;
 		case 0x1D:
-			printf("LCtrl");
+			printf(""); // LCtrl
 			break;
 		case 0x1E:
 			printf(caps ? "A" : "a");
@@ -129,16 +129,16 @@ void print_letter(uint8_t scancode)
             printf(caps ? "L" : "l");
             break;
         case 0x27:
-            printf(";");
+            printf(shift ? ":" : ";");
             break;
         case 0x28:
-            printf("'");
+            printf(shift ? "\"" : "'");
             break;
         case 0x29:
-            printf("`");
+            printf(shift ? "~" : "`");
             break;
 		case 0x2B:
-			printf("\\");
+			printf(shift ? "|" : "\\");
 			break;
 		case 0x2C:
 			printf(caps ? "Z" : "z");
@@ -162,100 +162,105 @@ void print_letter(uint8_t scancode)
             printf(caps ? "M" : "m");
             break;
         case 0x33:
-            printf(",");
+            printf(shift ? "<" : ",");
             break;
         case 0x34:
-            printf(".");
+            printf(shift ? ">" : ".");
             break;
         case 0x35:
-            printf("/");
+            printf(shift ? "?" : "/");
+            break;
+        case 0x36:
+            printf(""); // RShift
             break;
         case 0x37:
             printf("*");
             break;
         case 0x38:
-            printf("LAlt");
+            printf(""); //LAlt
             break;
         case 0x39:
             printf(" ");
             break;
  		case 0x3a:
-			printf("");
+			printf(""); // CapsLk
 			break;
 		case 0x3b:
-			printf("");
+			printf(""); // F1
+            printf("%d", get_row());
 			break;
 		case 0x3c:
-			printf("");
+			printf(""); // F2
+            printf("%d", get_col());
 			break;
 		case 0x3d:
-			printf("");
+			printf(""); // F3
 			break;
 		case 0x3e:
-			printf("");
+			printf(""); // F4
 			break;
 		case 0x3f:
-			printf("");
+			printf(""); // F5
 			break;
 		case 0x40:
-			printf("");
+			printf(""); // F6
 			break;
 		case 0x41:
-			printf("");
+			printf(""); // F7
 			break;
 		case 0x42:
-			printf("");
+			printf(""); // F8
 			break;
 		case 0x43:
-			printf("");
+			printf(""); // F9
 			break;
 		case 0x44:
-			printf("");
+			printf(""); // F10
 			break;
 		case 0x45:
-			printf("");
+			printf(""); // NumLK
 			break;
 		case 0x46:
-			printf("");
+			printf(""); // ScLk
 			break;
 		case 0x47:
-			printf("");
+			printf("7");
 			break;
 		case 0x48:
-			printf("");
+			printf("8");
 			break;
 		case 0x49:
-			printf("");
+			printf("9");
 			break;
 		case 0x4a:
-			printf("");
+			printf("-");
 			break;
 		case 0x4b:
-			printf("");
+			printf("4");
 			break;
 		case 0x4c:
-			printf("");
+			printf("5");
 			break;
 		case 0x4d:
-			printf("");
+			printf("6");
 			break;
 		case 0x4e:
-			printf("");
+			printf("+");
 			break;
 		case 0x4f:
-			printf("");
+			printf("1");
 			break;
 		case 0x50:
-			printf("");
+			printf("2");
 			break;
 		case 0x51:
-			printf("");
+			printf("3");
 			break;
 		case 0x52:
-			printf("");
+			printf("0");
 			break;
 		case 0x53:
-			printf("");
+			printf(".");
 			break;
 		case 0x54:
 			printf("");
@@ -267,8 +272,11 @@ void print_letter(uint8_t scancode)
 			printf("");
 			break;
 		case 0x57:
-			printf("");
+			printf(""); // F11
 			break;
+        case 0x58:
+            printf(""); // F12
+            break;
 
         default:
             /* 'keuyp' event corresponds to the 'keydown' + 0x80 

@@ -41,19 +41,23 @@ $(ARCHDIR)/isr.o \
 drivers/keyboard.o \
 drivers/timer.o \
 drivers/pcspk.o \
+drivers/diskio.o \
+drivers/ff.o \
 
 LINK_LIST=\
 $(LDFLAGS) \
 $(ARCHDIR)/crti.o \
 $(ARCHDIR)/crtbegin.o \
 $(KERNEL_OBJS) \
-$(LIBS) \
 $(ARCHDIR)/crtend.o \
 $(ARCHDIR)/crtn.o \
 $(ARCHDIR)/isr.o \
 drivers/keyboard.o \
 drivers/timer.o \
 drivers/pcspk.o \
+drivers/diskio.o \
+drivers/ff.o \
+$(LIBS) \
 
 .PHONY: all clean install install-headers install-kernel
 .SUFFIXES: .o .c .S
