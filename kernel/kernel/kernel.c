@@ -6,7 +6,6 @@
 #include <kernel/pic.h>
 #include <drivers/timer.h>
 #include <drivers/pcspk.h>
-#include <drivers/ata_pio.h>
 #include <drivers/ff.h>
 
 void kernel_main(void) {
